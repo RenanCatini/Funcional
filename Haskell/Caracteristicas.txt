@@ -1,0 +1,16 @@
+HASKELL
+
+    - Declaração de funções:
+        <nome funcao> :: [tipos entrada]... -> [tipo saida]
+        <nome funcao> parmetros = funcao
+    
+    - Valores não mudam apos serem definidos
+        x = 5
+        y = x + 3    // y sempre vai ser 8
+    
+        Não é possivel fazer: x = x + 1
+
+- Toda recursão precisa de um caso base, ou seja, condição de parada.
+    Exemplo fatorial: n! = n * (n - 1)! , onde o caso base é 0! = 1
+    
+        
