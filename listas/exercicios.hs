@@ -1,4 +1,4 @@
-import System.Win32 (xBUTTON1)
+import System.Win32 (xBUTTON1, zeroMemory, aCCESS_SYSTEM_SECURITY)
 -- Exercicio 1 
 
 -- a)
@@ -36,8 +36,63 @@ soma :: Int -> Int -> Int
 soma x y = x + y
 
 mult :: Int -> Int -> Int
-mult 1 y = y
-mult x y = soma y (mult (x-1) y)
+mult x y 
+    | x == 0 || y == 0  = 0
+    | x > 0 && y > 0    = soma y (mult (x-1) y)
+    | x < 0             = negate(mult (-x) y)
+    | otherwise         = negate(mult x (-y))
 
 -- Exercício 4: Inverter valor
      
+-- Exercício 5: Quarta Potencia
+square :: Int->Int
+square x = x * x
+
+fourPower :: Int->Int
+fourPower x = square (square x)
+
+-- Exercicio 6: i-esimo elemento de sqrt 6
+seq6 :: Int->Double
+seq6 0 = sqrt 6
+seq6 x = sqrt (6 + seq6(x - 1))
+
+-- Permutação: m!/n!*(m-n)!
+fatD :: Double->Double
+fatD 0 = 1
+fatD x = x * fatD(x-1)
+
+escolha :: Double->Double->Double
+escolha m n = fatD m / (fatD n * fatD (m-n))
+
+
+-- Exercicio 8: MDC
+mdc :: Int->Int->Int
+mdc x 0 = x
+mdc x y = mdc y (mod x y)
+
+-- Exercicio 9: Função que retorna quantos multiplos de um número existem em um intervalo
+howManyMultiples :: Int->Int->Int->Int
+howManyMultiples x y z
+    | z < y = 0
+    | mod z x == 0 = 1 + howManyMultiples x y (z-1)
+    | otherwise = howManyMultiples x y (z-1)
+ 
+
+-- Exercicio 10: Retorna o ultimo digito de um número
+lastElmList :: [a]->[a]
+lastElmList [x] = [x]
+lastElmList (_:y) = lastElmList y
+
+lastDigit :: Int->Int
+lastDigit x = read (lastElmList (show x))
+    
+-- Exercicio 11: Retorna o numero que esta na posição informada
+anyDigitAux :: Int->[a]->[a]
+anyDigitAux 0 (x:_) = [x]
+anyDigitAux x (a:b) = anyDigitAux (x-1) b
+
+anyDigit :: Int->Int->Int
+anyDigit x y = read (anyDigitAux x (show y))
+
+
+

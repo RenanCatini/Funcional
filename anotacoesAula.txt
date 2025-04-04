@@ -1,0 +1,72 @@
+-- Aula presencial (02/04)
+{-
+  Lista: numero infinito de elementos, e pode ser de um unico tipo
+    Sintaxe: X é lista do tipo a => x :: [a]
+    - Exemplo:  [1,2,3,4] :: [Int]
+              []        :: [Int]  => [] :: [[a]]
+              [[1,2], [4,7], []] : [[Int]]
+    - Assim: lista vazia é elemento de qualquer tipo
+    - Funções de Lista: 
+        reverse : inverte a ordem dos elementos da lista
+    
+    - Operadores de lista:
+      ++ -> concatenador de lista com lista [] ++ []
+      :  -> Serve para colocar elemento na lista x:[] (apenas para mesmo tipo)
+            - Se acontecer: [2,3,4]:[] => [[2,3,4]] (:[] -> É lista de 
+            lista de int)
+            - Se acontecer: [2,3]:[[]] => [[2,3], []] (:[[]], é uma lista de lista, 
+            com uma lista vazia)
+            - Se acontecer: 2:[[]] => Erro (lista de lista, não concatena com elemento)
+        - Exemplo : [3,9,4,2] inserir na ultima posição o elem. 10
+          > [3,9,4,2] ++ [10]   =>  [3,9,4,2,10]
+        
+        a) []:[]  =>  [[]]  (1 elem.)
+        b) []++[] =>  []
+
+        > [2,3]:[[]]    => [[2,3], []]
+        > ['2', '3']:[[]]   => ["23", []]
+        > [[3,4]]:[] => [[[3,4]]]
+        > []:[[[3,4]]] => [[], [[3,4]]]
+        > []++[[[3,4]]] => [[[3,4]]]
+
+        - Exemplo: [[], [1,2,3], [5]] (:: [[Int]])
+            a) [2]:[[], [1,2,3], [5]] => [[2] ,[], [1,2,3], [5]] 
+            b) (2:[]):[[1,2,3], [5]] => [[2],[1,2,3],[5]]
+            c) (2:[]):[] => [[2]]
+
+        - Exercicio: soma de elementos de uma [Int]
+            f :: [Int]->Int
+            f [] = 0
+            f (a:b) = a + f b
+
+    - Tupla: 
+        (2, [3]) => (Int, [Int])
+
+        - fst (2,3) => 2
+        - snd (2,3) => 3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-}
