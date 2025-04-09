@@ -12,7 +12,7 @@ maxi m n
 vendas :: Int -> Int
 vendas 0 = 0
 vendas 1 = 41
-vendas 2 = 72
+vendas 2 = 91
 vendas 3 = 48
 vendas 4 = 0
 vendas 5 = 91
@@ -30,7 +30,11 @@ listaDiaVendas 0 = []
 listaDiaVendas x = listaDiaVendas (x-1) ++ [[x, vendas x]]
 
 ----------------------------------------------------------
-{- 03 função que ordena uma lista de inteiros -}
+{- 03 função que maiorVendaT::[(Int, Int)] -> Int
+maiorVendaT [(dia,venda)] = venda
+maiorVendaT ((dia,venda):resto)
+   | venda > maiorVendaT resto = venda
+   | otherwise = maiorVendaT restoordena uma lista de inteiros -}
 ordenaLista::[Int]->[Int]
 ordenaLista [] = []
 ordenaLista (x:xs) = insere x (ordenaLista xs)
@@ -68,12 +72,32 @@ auxLILE (y:ys) = (ordenaLista y):(auxLILE ys)
 
 -----------  tuplas --------------------------------------------------------
 {- 06 função que gera uma lista de tuplas com dia e venda -}
---listaTuplaDiaVenda :: Int-> [(Int, Int)]
+listaTuplaDiaVenda :: Int-> [(Int, Int)]
+listaTuplaDiaVenda 0 = []
+listaTuplaDiaVenda x = listaTuplaDiaVenda (x-1) ++ [(x, vendas x)]
 
 {- 07 função que gera o total de vendas-}
---totalVendasT::[(Int, Int)] -> Int
+totalVendasT::[(Int, Int)] -> Int
+totalVendasT [] = 0
+totalVendasT ((dia,venda):resto) = 1 + totalVendasT resto
 
 {- 08 função que retorna a maior venda -}
---maiorVendaT::[(Int, Int)] -> Int
+maiorVendaT::[(Int, Int)] -> Int
+maiorVendaT [(dia,venda)] = venda
+maiorVendaT ((dia,venda):resto)
+   | venda > maiorVendaT resto = venda
+   | otherwise = maiorVendaT resto
+
 
 {- 09 função que retorna os dias das maiores vendas -}
+maioresVendas :: [(Int, Int)]->[Int]
+maioresVendas x = maioresVendasAux x x 
+
+
+maioresVendasAux :: [(Int, Int)]->[(Int, Int)]->[Int]
+maioresVendasAux x [] = []
+maioresVendasAux x ((dia,venda):resto)
+   | maiorVendaT x == venda = dia: maioresVendasAux x resto
+   | otherwise = maioresVendasAux x resto
+
+
