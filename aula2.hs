@@ -1,4 +1,4 @@
-import System.Win32 (xBUTTON1)
+import System.Win32 (xBUTTON1, LOCALESIGNATURE (lsCsbDefault))
 {-Assunto: Litas
   Os conceitos introdutórios sobre listas foram apresentados em sala.
   Agora, considerando os casos mais simples, com apenas listas de inteiros,
@@ -34,6 +34,7 @@ lenghtList::[Int]->Int
 lenghtList [] = 0
 lenghtList (a:b) = 1 + lenghtList b 
 
+
 --contar ocorrência de um elemento em uma lista --
 contList::Int->[Int]->Int
 contList _ [] = 0
@@ -46,6 +47,25 @@ contList x (a:b)
 reverseList:: [Int]->[Int]
 reverseList [] = []
 reverseList (a:b) = reverseList b ++ [a] 
+
+--exclui aa penúltima ocorrencia de um número na lista
+delPenult :: Int->Int->[Int]->[Int]
+delPenult _ _ [] = []
+delPenult x y (z:zs) 
+  | x == z && y == 2 = zs 
+  | x == z = z : delPenult x (y-1) zs
+  | otherwise = z : delPenult x y zs
+
+
+-- delPenult 3 (contList 3 [3,7,3,3,2,3,1]) [3,7,3,3,2,3,1] 
+
+exP :: Int->Int->[Int]->[Int]
+exP x 2 (l:xs)
+  | x == l = xs
+exP x y (l:ls)
+  | x == l = l : exP x (y-1) ls
+  | otherwise = l:exP x y ls
+
 
 -------------------------------------------------------------
 {- Exercícios
