@@ -1,4 +1,4 @@
-import System.Win32 (xBUTTON1, zeroMemory, aCCESS_SYSTEM_SECURITY)
+import System.Win32 (xBUTTON1, zeroMemory, aCCESS_SYSTEM_SECURITY, SECURITY_ATTRIBUTES (bInheritHandle))
 -- Exercicio 1 
 
 -- a)
@@ -56,7 +56,7 @@ seq6 :: Int->Double
 seq6 0 = sqrt 6
 seq6 x = sqrt (6 + seq6(x - 1))
 
--- Permutação: m!/n!*(m-n)!
+-- Exercicio 7: Permutação: m!/n!*(m-n)!
 fatD :: Double->Double
 fatD 0 = 1
 fatD x = x * fatD(x-1)
@@ -93,6 +93,66 @@ anyDigitAux x (a:b) = anyDigitAux (x-1) b
 
 anyDigit :: Int->Int->Int
 anyDigit x y = read (anyDigitAux x (show y))
+
+-- Exercicio 12: 3 números inteiros se são diferentes
+allDifferent :: Int->Int->Int->Bool
+allDifferent m n p = (m /= n) && (n /= p) && (m /= p)
+
+-- Exercicio 13: Quantos números são iguais?
+howManyEqual :: Int->Int->Int->Int
+howManyEqual x y z
+    | (x /= y) && (x /= z) && (y /= z) = 0
+    | (x == y) && (x == z) && (y == z) = 3
+    | otherwise = 2
+
+-- Exercicio 14:
+periodo::Int
+periodo = 7
+
+sales :: Int->Int
+sales 1 = 41
+sales 2 = 72
+sales 3 = 48
+sales 4 = 2
+sales 5 = 91
+sales 6 = 55
+sales 7 = 30
+sales _ = -1
+
+-- a) howManyLess valor comeco fim retorno
+howManyLess :: Int->Int->Int->Int
+howManyLess x a b
+    | a > b || sales a == -1 = 0
+    | sales a < x = 1 + howManyLess x (a+1) b 
+    | otherwise = howManyLess x (a+1) b
+
+-- b) Se há zeros no periodo
+noZerosInPeriod :: Int->Bool
+noZerosInPeriod a 
+    | sales a == -1 = True
+    | sales a == 0 = False 
+    | otherwise = noZerosInPeriod (a+1)
+
+
+-- c) Quantidade de vendas iguais a zero
+zeroInPeriod :: [Int]
+zeroInPeriod = zerosPeriodToList 1
+
+zerosPeriodToList :: Int->[Int]
+zerosPeriodToList a
+    | sales a == -1 = []
+    | sales a == 0 = zerosPeriodToList (a+1) ++ [a]
+    | otherwise = zerosPeriodToList (a+1)
+
+-- d) Retorna lista de dias que a venda foi menor que um parametro
+daysLassThan :: Int->[Int]
+daysLassThan a = daysLassThanToList a 1
+
+daysLassThanToList :: Int->Int->[Int]
+daysLassThanToList x a 
+    | sales a == -1 = []
+    | sales a < x = daysLassThanToList x (a+1) ++ [a]
+    | otherwise = daysLassThanToList x (a+1)
 
 
 
