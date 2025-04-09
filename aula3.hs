@@ -32,22 +32,38 @@ listaDiaVendas x = listaDiaVendas (x-1) ++ [[x, vendas x]]
 ----------------------------------------------------------
 {- 03 função que ordena uma lista de inteiros -}
 ordenaLista::[Int]->[Int]
+ordenaLista [] = []
+ordenaLista (x:xs) = insere x (ordenaLista xs)
 
 
-testaOrdena :: Int->[Int]->[Int]
-testeOrdena x [] = insere x
+insere :: Int->[Int]->[Int]
+insere x [] = [x]
+insere x (y:ys) 
+   | x > y = y:insere x ys 
+   | otherwise = x:(y:ys)
 
-insere :: Int->[Int]
-insere x = 
 
 -------------------------------------------------------------------------
 {- 04 função que ordena [[Int]] pelo primeiro Int de cada lista  -}
---ordenaListaLista::[[Int]]->[[Int]]
+ordenaListaLista :: [[Int]]->[[Int]]
+ordenaListaLista [] = [] 
+ordenaListaLista (x:xs) = insere2 x (ordenaListaLista xs)
 
+insere2 :: [Int]->[[Int]]->[[Int]]
+insere2 x [] = [x]
+insere2 (x:xs) ((z:zs):ys) 
+   | x > z = (z:zs):insere2 (x:xs) ys 
+   | otherwise = (x:xs):((z:zs):ys)
 
 ---------------------------------------------------------------------------
 {- 05 função que ordena as listas internas de [[Int]] e, em seguida, ordena a [[Int]] -}
---ordenaLILE::[[Int]] ->[[Int]]
+ordenaLILE ::[[Int]] ->[[Int]]
+ordenaLILE x = ordenaListaLista (auxLILE x)
+
+
+auxLILE :: [[Int]]->[[Int]]
+auxLILE [] = []
+auxLILE (y:ys) = (ordenaLista y):(auxLILE ys)
 
 
 -----------  tuplas --------------------------------------------------------
