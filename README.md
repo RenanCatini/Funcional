@@ -18,4 +18,4 @@ Este repositório contém materiais e exercícios relacionados à disciplina de 
 3. Navegue até o diretório desejado e execute os arquivos `.hs` com o GHC ou interprete-os no GHCi.
 
 ---
-**Nota**: Este repositório é de uso acadêmico e está em constante atualização conforme o progresso da disciplina. :D
+**Nota**: Este repositório é de uso acadêmico e está em constante atualização conforme o progresso da disciplina. 
