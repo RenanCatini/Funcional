@@ -13,7 +13,7 @@ Este repositório contém materiais e exercícios relacionados à disciplina de 
 1. Certifique-se de ter o GHC (Glasgow Haskell Compiler) instalado.
 2. Clone este repositório:
     ```bash
-    git clone /c:/Users/renan/Arquivos\ Unifal/Semestre\ 3/Funcional
+    git clone https://github.com/RenanCatini/Funcional.git
     ```
 3. Navegue até o diretório desejado e execute os arquivos `.hs` com o GHC ou interprete-os no GHCi.
 
