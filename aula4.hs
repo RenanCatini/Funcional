@@ -44,5 +44,5 @@ alfaToInt (x:xs) = ord x : alfaToInt xs
 
 {-- 07 função que gera tabela ascii -}
 geraASCII::Int->[(Int,Char)]
-geraASCII 128 = []
+geraASCII 30 = []
 geraASCII x = (x, chr x) : geraASCII (x+1)
