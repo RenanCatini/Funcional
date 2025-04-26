@@ -1,4 +1,5 @@
-import System.Win32 (xBUTTON1, zeroMemory, aCCESS_SYSTEM_SECURITY, SECURITY_ATTRIBUTES (bInheritHandle))
+import Data.Char
+
 -- Exercicio 1 
 
 -- a)
@@ -161,13 +162,59 @@ fib 0 = 0
 fib 1 = 1
 fib x = fib (x-1) + fib (x-2)
 
--- antFib :: Int->Int
--- antFib 0 = 0
--- antFib 1 = 1
--- antFib x =
---     | x >  
+antiFib :: Int -> Int
+antiFib x = antiFibAUX x 0
+
+antiFibAUX :: Int -> Int -> Int
+antiFibAUX x y
+    | x == fib y = y
+    | x > fib y = antiFibAUX x (y+1)
+    | x < fib y = -1
 
 
+-- Exercicio 16: 
+funny :: Int -> Int -> Int -> Bool
+funny x y z
+    | x > z = True
+    | y >= x = False
+    | otherwise = True
+
+funny2 :: Int -> Int -> Int -> Bool
+funny2 x y z = (x > z) || (x > y) 
 
 
+-- Exercicio 17: Converte de letra minuscula para maiuscula
+paraMaiuscula :: Char -> Char
+paraMaiuscula x
+  | ord x >= ord 'a' && ord x <= ord 'z' = chr (ord x - (ord 'a' - ord 'A'))
+  | otherwise = x
+
+-- Exercicio 18: Converte char para int
+charToNum::Char->Int
+charToNum x 
+    | isDigit x = ord x - ord '0'
+    | otherwise = -1  
+
+-- Exercicio 19: Concatenar n vezes a string
+duplicate :: String -> Int -> String 
+duplicate _ 0 = ['.']
+duplicate s 1 = s
+duplicate s n = s ++ duplicate s (n-1)
+
+-- Exercicio 20: 
+tamString :: String -> Int
+tamString [] = 0
+tamString (_:xs) = 1 + tamString xs
+
+pushRight :: String -> Int-> String 
+pushRight s n 
+    | n > tamString s = ">" ++ pushRight s (n-1)
+    | otherwise = s
+
+-- Exercicio 21: 
+
+-- Exercicio 22: Inverter lista
+inverte :: [Int] -> [Int]
+inverte [] = []
+inverte (x:xs) = inverte xs ++ [x]
 
