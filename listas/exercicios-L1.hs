@@ -331,8 +331,180 @@ numDeMascAUX n
 
 -- d) Numero do registro da pessoa de maior idade
 maiorIdade :: Int
+maiorIdade = maiorIdadeAUX 1 1
 
 maiorIdadeAUX :: Int -> Int -> Int
-maiorIdadeAUX 1 = 1
-maiorIdadeAUX x
-    | 
+maiorIdadeAUX x y
+    | trc (pessoa x) == 'x' = y
+    | sec (pessoa x) > sec (pessoa y) = maiorIdadeAUX (x+1) x
+    | otherwise = maiorIdadeAUX (x+1) y
+
+
+-- Exercicio 32: Recebe 4 inteiros e retorna uma tupla com eles ordenados
+ordena4Tupla :: Int -> Int -> Int -> Int -> (Int,Int,Int,Int)
+ordena4Tupla w x y z = tupla4 (ordenaLista [w,x,y,z])
+
+tupla4 :: [Int] -> (Int,Int,Int,Int)
+tupla4 [w,x,y,z] = (w,x,y,z)
+
+ordenaLista :: [Int] -> [Int]
+ordenaLista [] = []
+ordenaLista x = ordenaListaAUX x []
+
+ordenaListaAUX :: [Int] -> [Int] -> [Int]
+ordenaListaAUX [] y = y
+ordenaListaAUX (x:xs) y = ordenaListaAUX xs (insere x y)
+
+insere :: Int -> [Int] -> [Int]
+insere x [] = [x]
+insere x (y:ys) 
+    | x > y = y : insere x ys
+    | otherwise = x:(y:ys)
+
+-- Exercicio 33: Quantidade de dias entre datas
+-- qtdDias :: (Int,Int,Int) -> (Int,Int,Int) -> Int
+-- qtdDias (d1,m1,a1) (d2,m2,a2) = 
+
+-- contaQtdDias :: (Int,Int,Int) -> (Int,Int,Int) -> Int -> Int
+
+-- Exercicio 34: Resolve Equancao de Segundo grau
+equacao :: (Float,Float,Float) -> (Float,Float)
+equacao (a,b,c) 
+    | (b*b) - (4*a*c) < 0 = error "Raiz negativa"
+    | otherwise = (((-b) + sqrt((b*b) - (4*a*c))) / (2*a),
+                   ((-b) - sqrt((b*b) - (4*a*c))) / (2*a))
+
+-- Exercicio 35: Triangulo
+triangulo :: (Int,Int,Int) -> (String,Int)
+triangulo (x,y,z)
+    | (x+y < z) || (x+z < y) || (y+z < x) = error "Nao eh triangulo"
+    | x == y && y == z = ("Equilatero", x+y+z)
+    | x == y || x == z || y == z = ("Isoceles", x+y+z)
+    | otherwise = ("Escaleno", x+y+z)
+
+
+-- Exercicio 36: Base de professores
+base :: Int -> (Int, String, String, Char)
+base x
+    | x == 0  = (1793, "Pedro Paulo", "MESTRE", 'M')
+    | x == 1  = (1797, "Joana Silva Alencar", "MESTRE", 'M')
+    | x == 2  = (1534, "Joao de Medeiros", "DOUTOR", 'F')
+    | x == 3  = (1267, "Claudio Cesar de Sa", "DOUTOR", 'M')
+    | x == 4  = (1737, "Paula de Medeiros", "MESTRE", 'F')
+    | x == 5  = (1888, "Rita de Matos", "MESTRE", 'F')
+    | x == 6  = (1622, "Carlos Henrique Souza", "DOUTOR", 'M')
+    | x == 7  = (1777, "Mariana Lopes", "MESTRE", 'F')
+    | x == 8  = (1812, "Fernando Almeida", "DOUTOR", 'M')
+    | x == 9  = (1698, "Tereza Cristina Andrade", "MESTRE", 'F')
+    | x == 10 = (0, "", "", '0')
+    | otherwise = (0, "", "", '0')
+
+prm4 :: (a,b,c,d) -> a
+prm4 (x,_,_,_) = x
+
+sgd4 :: (a,b,c,d) -> b
+sgd4 (_,x,_,_) = x
+
+trc4 :: (a,b,c,d) -> c
+trc4 (_,_,x,_) = x
+
+qrt4 :: (a,b,c,d) -> d 
+qrt4 (_,_,_,x) = x
+
+-- a) Numero de doutores na base
+qtdDoutores :: Int
+qtdDoutores = qtdDoutoresAUX 0
+
+qtdDoutoresAUX :: Int -> Int
+qtdDoutoresAUX x 
+    | prm4 (base x) == 0 = 0
+    | trc4 (base x) == "DOUTOR" = 1 + qtdDoutoresAUX (x+1)
+    | otherwise = qtdDoutoresAUX (x+1)
+
+-- b) Numero de mulheres
+qtdMulheres :: Int
+qtdMulheres = qtdMulheresAUX 0
+
+qtdMulheresAUX :: Int -> Int
+qtdMulheresAUX x
+    | prm4 (base x) == 0 = 0
+    | qrt4 (base x) == 'F' = 1 + qtdMulheresAUX (x+1)
+    | otherwise = qtdMulheresAUX (x+1)
+
+-- c) Numero de Mestres do sexo Masculino
+qtdMestreMasc :: Int
+qtdMestreMasc = qtdMestreMascAUX 0
+
+qtdMestreMascAUX :: Int -> Int
+qtdMestreMascAUX x 
+    | prm4 (base x) == 0 = 0
+    | trc4 (base x) == "MESTRE" && qrt4 (base x) == 'M' = 1 + qtdMestreMascAUX (x+1)
+    | otherwise =  qtdMestreMascAUX (x+1)
+
+-- d) Nome do professor mais antigo
+profMaisAntigo :: String
+profMaisAntigo = sgd4 (base (profMaisAntigoAUX 0 0))
+
+profMaisAntigoAUX :: Int -> Int -> Int 
+profMaisAntigoAUX x y
+    | prm4 (base x) == 0 = y
+    | prm4 (base x) < prm4 (base y) = profMaisAntigoAUX (x+1) x
+    | otherwise = profMaisAntigoAUX (x+1) y
+
+-- Exercicio 37: 
+type Acervo = [(Isbn, Titulo, Reserva, Volumes)]
+type Emprestimo = [(Matricula, Isbn)]
+
+type Isbn = Int -- Isbn de um livro
+type Volumes = Int -- quantidade no acervo
+type Titulo = String -- título do livro
+type Matricula = String -- matrícula do discente
+type Reserva = Bool -- deve permanecer na biblioteca?
+
+acervo :: Acervo
+acervo = [
+    (1, "Haskell Básico", False, 3),
+    (2, "Programação Funcional", True, 2),
+    (3, "Estruturas de Dados", False, 1),
+    (4, "Compiladores", False, 0)
+    ]
+
+emprestimo :: Emprestimo
+emprestimo = [
+    ("2023001", 1),
+    ("2023002", 1),
+    ("2023003", 3)
+    ]
+
+-- a) Reservado = True, 
+func_1::Isbn-> Acervo -> Bool
+func_1 _ [] = error "Isbn nao encontrado"
+func_1 x (a:as) 
+    | x == prm4 a = not (trc4 a)
+    | otherwise = func_1 x as
+
+-- b) quantidade de livros emprestado
+func_2::Isbn -> Emprestimo -> Int
+func_2 _ [] = 0
+func_2 x (a:as)
+    | x == (snd a) = 1 + (func_2 x as)
+    | otherwise = func_2 x as
+
+-- c) quantidade de livros no acervo
+func_3::Isbn -> Acervo -> Int
+func_3 _ [] = 0
+func_3 x (a:as)
+    | x == prm4 a = qrt4 a
+    | otherwise = func_3 x as
+
+-- d) quantidade de livros disponiveis para emprestimo
+func_4 :: Isbn -> Int
+func_4 x
+    | (func_3 x acervo) == (func_2 x emprestimo) || not (func_1 x acervo) = 0
+    | otherwise = (func_3 x acervo) - (func_2 x emprestimo)
+
+-- e) recebe a matricula e o isbn e ve se pode pegar ou nao o livro
+func_5 :: Matricula -> Isbn -> Emprestimo
+func_5 mat isbn 
+    | (func_4 isbn) /= 0 = (mat,isbn) : emprestimo  
+    | otherwise = emprestimo 
