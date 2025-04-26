@@ -211,10 +211,39 @@ pushRight s n
     | n > tamString s = ">" ++ pushRight s (n-1)
     | otherwise = s
 
--- Exercicio 21: 
+-- Exercicio 21: ?????
 
 -- Exercicio 22: Inverter lista
 inverte :: [Int] -> [Int]
 inverte [] = []
 inverte (x:xs) = inverte xs ++ [x]
 
+-- Exercici 23: Separar uma lista em uma de pares e de impares
+separa :: [Int] -> ([Int],[Int])
+separa [] = ([],[])
+separa (x:xs)
+    | x `mod` 2 == 0 = (fst (separa xs), x : snd (separa xs))
+    | otherwise = (x : fst (separa xs), snd (separa xs))
+
+-- Exercicio 24: Converte de numero para a letra referendte a posicao no alfabeto
+converte :: [Int] -> String
+converte [] = ""
+converte (x:xs) = chr (x + ord 'A' - 1) : converte xs
+
+-- Exercicio 25: ??????????
+
+-- Exercicio 26: conta quantos de um determinado char existem na String
+conta :: String -> Char -> Int
+conta [] _ = 0
+conta (x:xs) y
+    | x == y = 1 + conta xs y
+    | otherwise = conta xs y
+
+-- Exercicio 27: retira elementos repetidos da lista
+purifica :: [Int] -> [Int]
+
+
+purificaAUX :: [Int] -> Int -> [Int]
+purificaAUX [] _ = []
+purificaAUX (x:y:xs) z
+    | x == z 
