@@ -1,4 +1,3 @@
-import System.Win32 (xBUTTON1, LOCALESIGNATURE (lsCsbDefault))
 {-Assunto: Litas
   Os conceitos introdutórios sobre listas foram apresentados em sala.
   Agora, considerando os casos mais simples, com apenas listas de inteiros,

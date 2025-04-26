@@ -241,9 +241,98 @@ conta (x:xs) y
 
 -- Exercicio 27: retira elementos repetidos da lista
 purifica :: [Int] -> [Int]
+purifica [] = []
+purifica (x:xs)
+    | pertence x xs = purifica xs
+    | otherwise = x : purifica xs
 
+pertence :: Int -> [Int] ->  Bool
+pertence _ [] = False
+pertence y (x:xs)
+    | x == y = True
+    | otherwise = pertence y xs 
 
-purificaAUX :: [Int] -> Int -> [Int]
-purificaAUX [] _ = []
-purificaAUX (x:y:xs) z
-    | x == z 
+-- Exercicio 28: Predicado que faz uma lista de int que cada int passado sera reproduzzido sua vez
+proliferaInt :: [Int] -> [Int]
+proliferaInt [] = []
+proliferaInt (x:xs) = addNVez x x ++ proliferaInt xs
+
+addNVez :: Int -> a -> [a]
+addNVez 0 _ = []
+addNVez x y = y : addNVez (x-1) y
+
+-- Exercicio 29: Mesmo do que o de cima mas agora com char
+charToInt :: Char -> Int
+charToInt x = ord x - ord 'A' + 1
+
+proliferaChar :: [Char] -> [Char]
+proliferaChar [] = []
+proliferaChar (x:xs) = addNVez (charToInt x) x ++ proliferaChar xs
+
+-- Exercicio 30: tripla maiusculo ou minusculi e sua posicao na tabela ascii
+converte2 :: Char -> (Char,Char,Int)
+converte2 x
+    | ord x > (ord 'a' - 1) = (x, toUpper x, ord x)
+    | otherwise = (toLower x, x, ord x)
+
+-- Exercicio 31: Funcoes de rg
+pessoa :: Int -> (String, Int, Char)
+pessoa rg
+    | rg == 1 = ("Joao Silva", 12, 'm')
+    | rg == 2 = ("Jonas Souza", 51, 'm')
+    | rg == 3 = ("Maria Oliveira", 34, 'f')
+    | rg == 4 = ("Ana Costa", 28, 'f')
+    | rg == 5 = ("Carlos Pereira", 45, 'm')
+    | rg == 6 = ("Fernanda Lima", 19, 'f')
+    | rg == 7 = ("Paulo Santos", 60, 'm')
+    | rg == 8 = ("Juliana Alves", 25, 'f')
+    | rg == 9 = ("Ricardo Mendes", 33, 'm')
+    | rg == 10 = ("Beatriz Rocha", 40, 'f')
+    | otherwise = ("Não há ninguém mais", 9999, 'x')
+
+prm :: (a,b,c) -> a
+prm (x,_,_) = x
+
+sec :: (a,b,c) -> b
+sec (_,x,_) = x
+
+trc :: (a,b,c) -> c
+trc (_,_,x) = x
+
+-- a) pessoa de menor de idade ate determinado registro
+menorIdade :: Int -> String
+menorIdade x = menorIdadeAUX x x
+
+menorIdadeAUX :: Int -> Int -> String
+menorIdadeAUX 0 x = prm (pessoa x)
+menorIdadeAUX n x
+    | sec (pessoa n) < sec (pessoa x) = menorIdadeAUX (n-1) n
+    | otherwise = menorIdadeAUX (n-1) x
+
+-- b) Idade media das pessoas ate determinado registro
+idadeMedia :: Int -> Int
+idadeMedia 0 = 0
+idadeMedia x = (somaIdades x) `div` x
+
+somaIdades :: Int -> Int
+somaIdades 0 = 0
+somaIdades x = sec (pessoa x) + somaIdades (x-1)
+
+-- c) numero de pessoas do sexo masculino
+numDeMasc :: Int
+numDeMasc = numDeMascAUX 1
+
+numDeMascAUX :: Int -> Int
+numDeMascAUX n 
+    | trc (pessoa n) == 'm' = 1 + numDeMascAUX (n+1)
+    | trc (pessoa n) == 'f' = numDeMascAUX (n+1)
+    | trc (pessoa n) == 'x' = 0
+    | otherwise = numDeMascAUX (n+1)
+
+-- d) Numero do registro da pessoa de maior idade
+maiorIdade :: Int
+
+maiorIdadeAUX :: Int -> Int -> Int
+maiorIdadeAUX 1 = 1
+maiorIdadeAUX x
+    | 
