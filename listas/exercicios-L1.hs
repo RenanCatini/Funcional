@@ -362,10 +362,10 @@ insere x (y:ys)
     | otherwise = x:(y:ys)
 
 -- Exercicio 33: Quantidade de dias entre datas
--- qtdDias :: (Int,Int,Int) -> (Int,Int,Int) -> Int
--- qtdDias (d1,m1,a1) (d2,m2,a2) = 
-
--- contaQtdDias :: (Int,Int,Int) -> (Int,Int,Int) -> Int -> Int
+qtdDias :: (Int,Int,Int) -> (Int,Int,Int) -> Int
+qtdDias (d1,m1,a1) (d2,m2,a2)  
+    | m1 >= m2 = (a2 - a1)* 365 + (m2 - m1)*30 + (d2-d1)
+    | otherwise = (a2 - a1)* 365 + (m2 - m1)*30 + (d2-d1)
 
 -- Exercicio 34: Resolve Equancao de Segundo grau
 equacao :: (Float,Float,Float) -> (Float,Float)
