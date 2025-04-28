@@ -30,11 +30,14 @@ listaDiaVendas 0 = []
 listaDiaVendas x = listaDiaVendas (x-1) ++ [[x, vendas x]]
 
 ----------------------------------------------------------
-{- 03 função que maiorVendaT::[(Int, Int)] -> Int
+{- 03 função que maiorVendaT::[(Int, Int)] -> Int -}
 maiorVendaT [(dia,venda)] = venda
 maiorVendaT ((dia,venda):resto)
    | venda > maiorVendaT resto = venda
-   | otherwise = maiorVendaT restoordena uma lista de inteiros -}
+   | otherwise = maiorVendaT resto
+   
+-- ordena uma lista de inteiros 
+
 ordenaLista::[Int]->[Int]
 ordenaLista [] = []
 ordenaLista (x:xs) = insere x (ordenaLista xs)

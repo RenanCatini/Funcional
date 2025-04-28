@@ -1,5 +1,4 @@
 import Data.Char
-import Distribution.Compat.CharParsing (CharParsing(char))
 
 {- faça a função f1 que receba uma String S
 e Retorne uma String R.

@@ -67,9 +67,10 @@ escolha m n = fatD m / (fatD n * fatD (m-n))
 
 
 -- Exercicio 8: MDC
-mdc :: Int->Int->Int
-mdc x 0 = x
-mdc x y = mdc y (mod x y)
+mdc :: Int -> Int -> Int
+mdc m n
+   | m `mod` n /= 0 = mdc n (m `mod` n)
+   | otherwise = n
 
 -- Exercicio 9: Função que retorna quantos multiplos de um número existem em um intervalo
 howManyMultiples :: Int->Int->Int->Int
@@ -80,12 +81,10 @@ howManyMultiples x y z
  
 
 -- Exercicio 10: Retorna o ultimo digito de um número
-lastElmList :: [a]->[a]
-lastElmList [x] = [x]
-lastElmList (_:y) = lastElmList y
-
 lastDigit :: Int->Int
-lastDigit x = read (lastElmList (show x))
+lastDigit x
+   | x < 10 = x
+   | otherwise = lastDigit (x `mod` 10)
     
 -- Exercicio 11: Retorna o numero que esta na posição informada
 anyDigitAux :: Int->[a]->[a]
@@ -365,7 +364,7 @@ insere x (y:ys)
 qtdDias :: (Int,Int,Int) -> (Int,Int,Int) -> Int
 qtdDias (d1,m1,a1) (d2,m2,a2)  
     | m1 >= m2 = (a2 - a1)* 365 + (m2 - m1)*30 + (d2-d1)
-    | otherwise = (a2 - a1)* 365 + (m2 - m1)*30 + (d2-d1)
+    | m1 < m2 &&  = (a2 - a1)* 365 + (m2 - m1)*30 + (d2-d1)
 
 -- Exercicio 34: Resolve Equancao de Segundo grau
 equacao :: (Float,Float,Float) -> (Float,Float)
