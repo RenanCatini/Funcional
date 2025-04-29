@@ -6,7 +6,7 @@ Este repositório contém materiais e exercícios relacionados à disciplina de 
 
 - **/listas**: Implementações de problemas e listas propostos em Haskell.
 - **/anotacoes**: Resumo de conceitos e exemplos abordados em aula.
-- **Arquivos de Aulas**: Arquivos de exercicios propostos em aula para serem resolvidos.
+- **/aulas**: Arquivos de exercicios propostos em aula para serem resolvidos.
 
 ## Como Usar
 
