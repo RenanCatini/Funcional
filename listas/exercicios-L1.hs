@@ -364,7 +364,7 @@ insere x (y:ys)
 qtdDias :: (Int,Int,Int) -> (Int,Int,Int) -> Int
 qtdDias (d1,m1,a1) (d2,m2,a2)  
     | m1 >= m2 = (a2 - a1)* 365 + (m2 - m1)*30 + (d2-d1)
-    | m1 < m2 &&  = (a2 - a1)* 365 + (m2 - m1)*30 + (d2-d1)
+    | m1 < m2  = (a2 - a1)* 365 + (m2 - m1)*30 + (d2-d1)
 
 -- Exercicio 34: Resolve Equancao de Segundo grau
 equacao :: (Float,Float,Float) -> (Float,Float)
